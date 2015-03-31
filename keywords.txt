@@ -1,0 +1,16 @@
+DateTime	KEYWORD1
+year		KEYWORD2
+month		KEYWORD2
+day		KEYWORD2
+hour		KEYWORD2
+minute		KEYWORD2
+second		KEYWORD2
+
+RTC_MCP7940	KEYWORD1
+begin		KEYWORD2
+adjust		KEYWORD2
+now		KEYWORD2
+isrunning	KEYWORD2
+configure	KEYWORD2
+setAlarm	KEYWORD2
+ordinalDate	KEYWORD2
