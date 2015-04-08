@@ -25,13 +25,14 @@ class DateTime {	//DateTime class constructs the variable to store RTC Date and 
 class RTC_MCP7940{	//RTC functions, based off original library. Some functions are designed specifically for use in the
   public:			//3 Channel Data Logger.
 
-  static void begin(){};												//not sure if this is entirely necessary, no use in cpp file
+  static void begin();												//initialize Wire library
   static void adjust(const DateTime& dt);								//change date and time
   static DateTime now();												//get current time and date from RTC registers
   static uint8_t isrunning();											//check to make sure clock is ticking
   static void configure(uint8_t value);									//configure alarm enables and MFP output
   static void setAlarm(uint8_t value);									//configure alarm settings register
   static uint8_t ordinalDate(uint8_t toDay, uint8_t toMonth);			//convert date and month to ordinal (julian) date
+  static unsigned long get(){return now().get();}
 
   static uint8_t bcd2bin (uint8_t val) { return val - 6 * (val >> 4);}	//bcd to bin conv (RTC to MCU)
   static uint8_t bin2bcd (uint8_t val) { return val + 6 * (val / 10);}	//bin to bcd conv (MCU to RTC)

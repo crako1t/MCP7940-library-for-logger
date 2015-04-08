@@ -120,6 +120,11 @@ long DateTime::get()const{
 	Date:		August 2014
 */
 
+void RTC_MCP7940::begin(){
+  Wire.begin();
+}
+
+
 void RTC_MCP7940::adjust(const DateTime& dt) {	//change date and time registers based on user input
   Wire.beginTransmission(RTC_ADD);
   Wire.write((byte) 0);
