@@ -14,7 +14,7 @@ class DateTime {	//DateTime class constructs the variable to store RTC Date and 
   uint8_t hour() const   {return hh;}
   uint8_t minute() const {return mm;}
   uint8_t second() const {return ss;}
-  uint8_t dayOfWeek() const;
+  uint8_t DayOfWeek() const;
 
   long get() const;
 

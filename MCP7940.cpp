@@ -100,7 +100,7 @@ DateTime::DateTime (const char* date, const char* time) {
   ss=conv2d(time+6);
 }
 
-uint8_t DateTime::dayOfWeek() const{
+uint8_t DateTime::DayOfWeek() const{
   uint16_t day = get()/SECONDS_PER_DAY;
   return (day+6)%7;
 }
