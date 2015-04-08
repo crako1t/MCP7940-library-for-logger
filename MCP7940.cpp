@@ -1,5 +1,5 @@
 /*	library based on jeelabs RTClib [original library at https://github.com/jcw/rtclib ] altered to support Microchip MCP7940M RTC, used in Arduino 
-	based embedded environments. To use this library, add #include <mcp7940.h> to the top of your program.*/
+	based embedded environments. To use this library, add #include <MCP7940.h> to the top of your program.*/
 
 #include <Wire.h>
 #ifndef ENERGIA
@@ -9,7 +9,7 @@
 #define pgm_read_byte(data) *data
 #define PROGMEM
 #endif
-#include <mcp7940.h>
+#include <MCP7940.h>
 #include <Arduino.h>
 
 #define RTC_ADD           0x6F
@@ -100,7 +100,7 @@ DateTime::DateTime (const char* date, const char* time) {
   ss=conv2d(time+6);
 }
 
-uint8_t DateTime::dayOfWeek() const{
+uint8_t DateTime::DayOfWeek() const{
   uint16_t day = get()/SECONDS_PER_DAY;
   return (day+6)%7;
 }
@@ -112,13 +112,20 @@ long DateTime::get()const{
 
 /*	END SECTION COPIED FROM RTClib */
 
-/*	THIS SECTION BASED ON RTClib 
+/*	THIS SECTION BASED ON RTClib
 	It has been adjusted to support the Microchip MCP7940M
-	
+
 	Version:	Initial
 	Author:		C.Koiter
 	Date:		August 2014
 */
+
+void RTC_MCP7940::begin(){
+  Wire.begin();
+}
+
+
+
 
 void RTC_MCP7940::adjust(const DateTime& dt) {	//change date and time registers based on user input
   Wire.beginTransmission(RTC_ADD);
@@ -126,12 +133,20 @@ void RTC_MCP7940::adjust(const DateTime& dt) {	//change date and time registers 
   Wire.write(bin2bcd((byte) 10000000));
   Wire.write(bin2bcd(dt.minute()));
   Wire.write(bin2bcd(dt.hour()));
-  Wire.write(bin2bcd(0));
+  Wire.write(bin2bcd(0x8)); //enable RTC battery backup function
   Wire.write(bin2bcd(dt.day()));
   Wire.write(bin2bcd(dt.month()));
   Wire.write(bin2bcd(dt.year()-2000));
   Wire.write((byte) 0);
   Wire.endTransmission();
+}
+
+bool RTC_MCP7940::isset(){		//check whether clock is set
+  Wire.beginTransmission(RTC_ADD);
+  Wire.write((byte) 0);
+  Wire.endTransmission();
+  Wire.requestFrom(RTC_ADD,1);
+  return ((Wire.read()&(1<<7))==(1<<7));
 }
 
 DateTime RTC_MCP7940::now(){					//current date and time
@@ -146,7 +161,7 @@ DateTime RTC_MCP7940::now(){					//current date and time
   uint8_t d = bcd2bin(Wire.read());
   uint8_t m = bcd2bin(Wire.read());
   uint16_t y = bcd2bin(Wire.read()) + 2000;
-  
+
   return DateTime (y, m, d, hh, mm, ss);
 }
 
