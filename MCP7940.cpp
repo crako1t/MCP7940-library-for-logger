@@ -125,18 +125,28 @@ void RTC_MCP7940::begin(){
 }
 
 
+
+
 void RTC_MCP7940::adjust(const DateTime& dt) {	//change date and time registers based on user input
   Wire.beginTransmission(RTC_ADD);
   Wire.write((byte) 0);
   Wire.write(bin2bcd((byte) 10000000));
   Wire.write(bin2bcd(dt.minute()));
   Wire.write(bin2bcd(dt.hour()));
-  Wire.write(bin2bcd(0));
+  Wire.write(bin2bcd(0x8)); //enable RTC battery backup function
   Wire.write(bin2bcd(dt.day()));
   Wire.write(bin2bcd(dt.month()));
   Wire.write(bin2bcd(dt.year()-2000));
   Wire.write((byte) 0);
   Wire.endTransmission();
+}
+
+bool RTC_MCP7940::isset(){		//check whether clock is set
+  Wire.beginTransmission(RTC_ADD);
+  Wire.write((byte) 0);
+  Wire.endTransmission();
+  Wire.requestFrom(RTC_ADD,1);
+  return ((Wire.read()&(1<<7))==(1<<7));
 }
 
 DateTime RTC_MCP7940::now(){					//current date and time

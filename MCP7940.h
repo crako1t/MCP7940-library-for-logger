@@ -30,6 +30,7 @@ class RTC_MCP7940{	//RTC functions, based off original library. Some functions a
   static DateTime now();												//get current time and date from RTC registers
   static uint8_t isrunning();											//check to make sure clock is ticking
   static void configure(uint8_t value);									//configure alarm enables and MFP output
+  static bool isset();									//check whether clock has been set
   static void setAlarm(uint8_t value);									//configure alarm settings register
   static uint8_t ordinalDate(uint8_t toDay, uint8_t toMonth);			//convert date and month to ordinal (julian) date
   static unsigned long get(){return now().get();}
