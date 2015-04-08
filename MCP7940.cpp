@@ -112,9 +112,9 @@ long DateTime::get()const{
 
 /*	END SECTION COPIED FROM RTClib */
 
-/*	THIS SECTION BASED ON RTClib 
+/*	THIS SECTION BASED ON RTClib
 	It has been adjusted to support the Microchip MCP7940M
-	
+
 	Version:	Initial
 	Author:		C.Koiter
 	Date:		August 2014
@@ -146,7 +146,7 @@ DateTime RTC_MCP7940::now(){					//current date and time
   uint8_t d = bcd2bin(Wire.read());
   uint8_t m = bcd2bin(Wire.read());
   uint16_t y = bcd2bin(Wire.read()) + 2000;
-  
+
   return DateTime (y, m, d, hh, mm, ss);
 }
 
