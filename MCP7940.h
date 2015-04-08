@@ -1,5 +1,5 @@
 /*	library based on jeelabs RTClib [original library at https://github.com/jcw/rtclib ] altered to support Microchip MCP7940M RTC, used in Arduino
-	based embedded environments. To use this library, add #include <mcp7940.h> to the top of your program.*/
+	based embedded environments. To use this library, add #include <MCP7940.h> to the top of your program.*/
 
 class DateTime {	//DateTime class constructs the variable to store RTC Date and Time, and is a direct copy from the original RTClib.
   public:

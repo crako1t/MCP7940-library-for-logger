@@ -1,5 +1,5 @@
 /*	library based on jeelabs RTClib [original library at https://github.com/jcw/rtclib ] altered to support Microchip MCP7940M RTC, used in Arduino 
-	based embedded environments. To use this library, add #include <mcp7940.h> to the top of your program.*/
+	based embedded environments. To use this library, add #include <MCP7940.h> to the top of your program.*/
 
 #include <Wire.h>
 #ifndef ENERGIA
@@ -9,7 +9,7 @@
 #define pgm_read_byte(data) *data
 #define PROGMEM
 #endif
-#include <mcp7940.h>
+#include <MCP7940.h>
 #include <Arduino.h>
 
 #define RTC_ADD           0x6F
