@@ -159,7 +159,7 @@ DateTime RTC_MCP7940::now(){					//current date and time
   uint8_t hh = bcd2bin(Wire.read());
   Wire.read();
   uint8_t d = bcd2bin(Wire.read());
-  uint8_t m = bcd2bin(Wire.read());
+  uint8_t m = bcd2bin(Wire.read() & 0x1F);
   uint16_t y = bcd2bin(Wire.read()) + 2000;
 
   return DateTime (y, m, d, hh, mm, ss);
